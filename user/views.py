@@ -2,7 +2,7 @@ from django.contrib import auth
 from django.shortcuts import render, redirect
 
 from . import views as user_views
-from .forms import UserSigninForm
+from .forms import SigninForm
 
 
 # def register(request):
@@ -40,7 +40,7 @@ def signin(request):
     #         messages.error(request, '존재하지 않는 아이디 이거나 비밀번호가 틀렸습니다.')
     #         return redirect('signin')
 
-    form = UserSigninForm()
+    form = SigninForm()
     return render(request, 'signin.html', {'form': form})
 
 
