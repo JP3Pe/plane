@@ -2,26 +2,25 @@ from django.contrib import auth
 from django.shortcuts import render, redirect
 
 from . import views as user_views
-from .forms import SigninForm
+from .forms import SigninForm, SignupForm
 
 
-# def register(request):
-#     if request.method == "POST":
-#         # 중복 유저 존재 하는지 검사하는 if문
-#         if User.objects.filter(username=request.POST['username']):
-#             messages.error(request, '해당 유저명은 이미 사용 중 입니다.')
-#             return redirect('register')
-#
-#         form = UserRegisterForm(request.POST)
-#         # 폼 검증
-#         if form.is_valid():
-#             new_user = User.objects.create_user(
-#                 **form.cleaned_data)
-#             auth.login(request, new_user)
-#             return redirect(bulletin_board_views.show_post)
-#     else:
-#         form = UserRegisterForm()
-#         return render(request, 'register.html', {'form': form})
+def signup(request):
+    # if request.method == "POST":
+    #     # 중복 유저 존재 하는지 검사하는 if문
+    #     if User.objects.filter(username=request.POST['username']):
+    #         messages.error(request, '해당 유저명은 이미 사용 중 입니다.')
+    #         return redirect('register')
+    #
+    #     form = UserRegisterForm(request.POST)
+    #     # 폼 검증
+    #     if form.is_valid():
+    #         new_user = User.objects.create_user(
+    #             **form.cleaned_data)
+    #         auth.login(request, new_user)
+    #         return redirect(bulletin_board_views.show_post)
+    form = SignupForm()
+    return render(request, 'signup.html', {'form': form})
 
 
 def signin(request):
