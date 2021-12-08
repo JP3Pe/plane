@@ -5,7 +5,7 @@ from . import views as user_views
 from .forms import SigninForm, SignupForm
 
 
-def signup(request):
+def sign_up(request):
     # if request.method == "POST":
     #     # 중복 유저 존재 하는지 검사하는 if문
     #     if User.objects.filter(username=request.POST['username']):
@@ -20,10 +20,10 @@ def signup(request):
     #         auth.login(request, new_user)
     #         return redirect(bulletin_board_views.show_post)
     form = SignupForm()
-    return render(request, 'signup.html', {'form': form})
+    return render(request, 'sign_up.html', {'form': form})
 
 
-def signin(request):
+def sign_in(request):
     # if request.method == "POST":
     #     form = UserSigninForm(request.POST)
     #     username = request.POST['username']
@@ -40,9 +40,9 @@ def signin(request):
     #         return redirect('signin')
 
     form = SigninForm()
-    return render(request, 'signin.html', {'form': form})
+    return render(request, 'sign_in.html', {'form': form})
 
 
 def logout(request):
     auth.logout(request)
-    return redirect(user_views.signin)
+    return redirect(user_views.sign_in)
