@@ -1,0 +1,43 @@
+{% extends 'user_base.html' %}
+{% block content %}
+
+    <body>
+    {% if messages %}
+        <script>
+            {% for message in messages %}
+                alert("{{ message }}");
+            {% endfor %}
+        </script>
+    {% endif %}
+    <div id="login">
+        <h3 class="text-center text-white pt-5">Login form</h3>
+        <div class="container">
+            <div id="login-row" class="row justify-content-center align-items-center">
+                <div id="login-column" class="col-md-6">
+                    <div id="login-box" class="col-md-12">
+                        <form id="login-form" class="form" action="{% url 'sign-in' %}" method="post">
+                            {% csrf_token %}
+                            <h3 class="text-center text-muted">Login</h3>
+                            <div class="form-group">
+                                <label for="username" class="text-muted">UserEmail:</label><br>
+                                {{ form.email }}
+                            </div>
+                            <div class="form-group">
+                                <label for="password" class="text-muted">Password:</label><br>
+                                {{ form.password }}
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" name="Log in" class="btn btn-secondary btn-md" value="log in">
+                            </div>
+                            <div id="register-link" class="text-right">
+                                <a href="{% url 'sign-up' %}" class="text-muted">Register here</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </body>
+
+{% endblock %}
