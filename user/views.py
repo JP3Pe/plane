@@ -1,26 +1,26 @@
-from django.contrib import auth
+from django.contrib import auth, messages
+from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 
-from . import views as user_views
 from .forms import SigninForm, SignupForm
 
 
 def sign_up(request):
-    # if request.method == "POST":
-    #     # 중복 유저 존재 하는지 검사하는 if문
-    #     if User.objects.filter(username=request.POST['username']):
-    #         messages.error(request, '해당 유저명은 이미 사용 중 입니다.')
-    #         return redirect('register')
-    #
-    #     form = UserRegisterForm(request.POST)
-    #     # 폼 검증
-    #     if form.is_valid():
-    #         new_user = User.objects.create_user(
-    #             **form.cleaned_data)
-    #         auth.login(request, new_user)
-    #         return redirect(bulletin_board_views.show_post)
-    form = SignupForm()
-    return render(request, 'sign_up.html', {'form': form})
+    if request.method == "POST":
+        form = SignupForm(request.POST)
+        if form.is_valid:
+            if User.objects.filter(email=form.cleaned_data['email']):
+                messages.error(request, '해당 유저명은 이미 사용 중 입니다.')
+                return redirect('sign-up')
+            else:
+                User.objects.create_user(**form.cleaned_data)
+            return redirect('sign-in')
+        else:
+            return redirect('sign-up')
+
+    else:
+        form = SignupForm()
+        return render(request, 'sign_up.html', {'form': form})
 
 
 def sign_in(request):
