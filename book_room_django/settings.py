@@ -35,7 +35,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'user.apps.UserConfig'
+    'user.apps.UserConfig',
+    'trip.apps.TripConfig'
 ]
 
 MIDDLEWARE = [
@@ -114,6 +115,7 @@ STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'user', 'static'),
+    os.path.join(BASE_DIR, 'trip', 'static'),
 ]
 
 # Default primary key field type
