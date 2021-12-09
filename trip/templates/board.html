@@ -1,0 +1,47 @@
+{% extends 'trip_base.html' %}
+{% block content %}
+    <main role="main">
+
+        <section class="jumbotron text-center">
+            <div class="container">
+                <h1>안녕하세요 저는 {{ user.username }}에요!</h1>
+                <p class="lead text-muted">글을 남겨 주세요</p>
+                <div class="form-group">
+                    {#                    <a type="submit" class="btn btn-secondary" id="write" href="{% url 'create_post' %}">write</a>#}
+                </div>
+            </div>
+        </section>
+
+        <div class="album py-5 bg-light">
+            <div class="container">
+
+                <div class="row">
+                    {% for post in posts %}
+                        <div class="col-md-4">
+                            <div class="card mb-4 shadow-sm">
+                                <div class="card-body">
+                                    <div align="right">
+                                        <small class="text-muted">{{ post.author }}</small>
+                                    </div>
+                                    <h3>
+                                        <p class="card-text">{{ post.title|truncatechars:11 }}</p>
+                                    </h3>
+                                    <p class="card-text">{{ post.content|truncatechars:18 }}</p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="btn-group">
+                                            {#                                            <a type="submit" class="btn btn-sm btn-outline-secondary"#}
+                                            {#                                               href="{% url 'view_post' id=post.id %}">View</a>#}
+                                            {#                                            <a type="submit" class="btn btn-sm btn-outline-secondary"#}
+                                            {#                                               href="{% url 'edit_post' id=post.id %}">Edit</a>#}
+                                        </div>
+                                        <small class="text-muted">{{ post.date|date:"D d M Y" }}</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}
