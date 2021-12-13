@@ -36,7 +36,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'user.apps.UserConfig',
-    'trip.apps.TripConfig'
+    'trip.apps.TripConfig',
+    'schedule.apps.ScheduleConfig'
 ]
 
 MIDDLEWARE = [
@@ -116,6 +117,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'user', 'static'),
     os.path.join(BASE_DIR, 'trip', 'static'),
+    os.path.join(BASE_DIR, 'schedule', 'static'),
 ]
 
 # Default primary key field type
