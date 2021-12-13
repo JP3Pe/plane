@@ -3,7 +3,7 @@ from django.db import models
 
 class Trip(models.Model):
     title = models.CharField(max_length=50)
-    content = models.TextField()
+    explanation = models.TextField()
     date = models.DateTimeField(auto_now_add=True)
     author = models.CharField(max_length=50)
 
