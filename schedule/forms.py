@@ -9,10 +9,8 @@ class ScheduleForm(ModelForm):
         fields = ['place']
         widgets = {
             'place': TextInput(
-                attrs={'class': 'form-control',
-                       'value': 'value'})
+                attrs={'class': 'form-control'})
         }
         labels = {
             'place': 'place'
-
         }

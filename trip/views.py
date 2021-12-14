@@ -22,7 +22,6 @@ def create_posts(request):
     elif request.method == 'POST':
         if request.user.is_authenticated:
             trip_form = TripForm(request.POST)
-            schedule_form = ScheduleForm(request.POST)
             trip = None
 
             if trip_form.is_valid():
@@ -30,10 +29,10 @@ def create_posts(request):
                 trip.author = User.objects.get(username=request.user.get_username())
                 trip.save()
 
-            if schedule_form.is_valid():
-                schedule = Schedule(**schedule_form.cleaned_data)
-                schedule.trip = trip
-                schedule.save()
+            schedules = request.POST.getlist('place')
+            for schedule in schedules:
+                # TODO: Validation 추가
+                Schedule.objects.create(trip=trip, place=schedule)
 
         else:
             return redirect('sign-in')
