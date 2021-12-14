@@ -10,9 +10,9 @@ class TripForm(ModelForm):
         widgets = {
             'title': TextInput(attrs={'class': 'form-control', 'minlength': 1, 'maxlength': 50,
                                       'placeholder': '50자 이내로 제목 입력 가능합니다.'}),
-            'explanation': Textarea(attrs={'class': 'form-control'}),
+            'explanation': Textarea(attrs={'class': 'form-control', 'row': 3}),
         }
         labels = {
             'title': 'title',
-            'explanation': 'content',
+            'explanation': 'explanation',
         }
