@@ -1,52 +1,69 @@
 {% extends 'trip_base.html' %}
 {% block content %}
+    <script>
+        var arrInput = new Array(0);
+        var arrInputValue = new Array(0);
+
+        function addInput() {
+            arrInput.push(arrInput.length);
+            arrInputValue.push("");
+            display();
+        }
+
+        function display() {
+            document.getElementById('parah').innerHTML = "";
+            for (intI = 0; intI < arrInput.length; intI++) {
+                document.getElementById('parah').innerHTML += createInput(arrInput[intI], arrInputValue[intI]);
+            }
+        }
+
+        function saveValue(intId, strValue) {
+            arrInputValue[intId] = strValue;
+        }
+
+        function createInput(id, value) {
+            return "<label for='subject'> 일정 </label>" + " <input type='text' calss='form-control' placeholder='{{ post.title }}'  id='test " + id + "' onChange='javascript:saveValue(" + id + ",this.value)' value='" +
+                value + "'><br>";
+        }
+
+        function deleteInput() {
+            if (arrInput.length > 0) {
+                arrInput.pop();
+                arrInputValue.pop();
+            }
+            display();
+        }
+
+    </script>
     <main role="main">
         <section class="jumbotron text-center">
             <div class="container">
-                <h1>안녕하세요 저는 {{ user.username }}에요!</h1>
+                <h1>안녕하세요 저는 유미에요!</h1>
                 <p class="lead text-muted">글을 남겨 주세요
                 </p>
             </div>
         </section>
         <div class="container">
-            <form action="{% url 'create-post' %}" method="post" enctype="multipart/form-data">
-                {% csrf_token %}
-                <div class="form-group">
-                    <label for="subject">제목</label>
-                    {{ form.title }}
-                </div>
-                {#      <script type="text/javascript">#}
-                {#        $(document).ready(function () {#}
-                {#          $("#fileInput").on('change', function () {  // 값이 변경되면#}
-                {#            if (window.FileReader) {  // modern browser#}
-                {#              var filename = $(this)[0].files[0].name;#}
-                {#            } else {  // old IE#}
-                {#              var filename = $(this).val().split('/').pop().split('\\').pop();  // 파일명만 추출#}
-                {#            }#}
-                {#            // 추출한 파일명 삽입#}
-                {#            $("#userfile").val(filename);#}
-                {#          });#}
-                {#        });#}
-                {#      </script>#}
-                <div class="form-group">
-                    {#        <label for="InputSubject1">파일첨부</label>#}
-                    {#        {{ form.file }}#}
-                    {#        <div class="bootstrap-filestyle input-group">#}
-                    {#          <input type="text" id="userfile" class="form-control" name="userfile" disabled="">#}
-                    {#          <span class="group-span-filestyle input-group-btn" tabindex="0">#}
-                    {#            <label for="fileInput" class="btn btn-default">#}
-                    {#              <span class="glyphicon fa fa-upload"></span>#}
-                    {#            </label>#}
-                    {#          </span>#}
-                    {#        </div>#}
-                </div>
-                <div class="form-group">
-                    <label for="content">내용</label>
-                    {{ form.explanation }}
-                </div>
+            {#        <form action="{% url 'edit_post' post.id %}" method="POST">#}
+            <div class="form-group">
+                <label for="subject">여행 제목</label>
+                <input type="text" class="form-control" id="title" name="title" placeholder="{{ post.title }}">
+            </div>
+            <div class="form-group">
+                <label for="content">여행 일정</label>
+                <div class="form-group" id="parah"></div>
+                <form method="post" action="test.jsp">
+                    <input type="button" value="추가" onclick="addInput();"/>
+                    <input type="button" value="삭제" onclick="deleteInput();"/>
+                </form>
+                <textarea class="form-control whitebackground size" id="body" name="body"
+                          rows="3">{{ post.body }}</textarea>
                 <button type="submit" class="btn btn-secondary">작성</button>
-                <a href="{% url 'trips' %}" class="btn btn-secondary">취소</a>
+                {#                <a type="button" class="btn btn-secondary" href="{% url 'delete_post' post.id %}">삭제</a>#}
+                {#                <a type="button" class="btn btn-secondary" href="{% url 'show_post' %}">취소</a>#}
+            </div>
             </form>
         </div>
+
     </main>
 {% endblock %}
