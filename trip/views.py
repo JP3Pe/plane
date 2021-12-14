@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 
 from schedule.forms import ScheduleForm
+from schedule.models import Schedule
 from trip.forms import TripForm
 from trip.models import Trip
 
@@ -21,11 +22,18 @@ def create_posts(request):
     elif request.method == 'POST':
         if request.user.is_authenticated:
             trip_form = TripForm(request.POST)
+            schedule_form = ScheduleForm(request.POST)
+            trip = None
 
             if trip_form.is_valid():
                 trip = Trip(**trip_form.cleaned_data)
                 trip.author = User.objects.get(username=request.user.get_username())
                 trip.save()
+
+            if schedule_form.is_valid():
+                schedule = Schedule(**schedule_form.cleaned_data)
+                schedule.trip = trip
+                schedule.save()
 
         else:
             return redirect('sign-in')
