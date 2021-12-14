@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
+from django.views.generic import ListView
 
 from schedule.forms import ScheduleForm
 from schedule.models import Schedule
@@ -7,10 +8,10 @@ from trip.forms import TripForm
 from trip.models import Trip
 
 
-def get_posts(request):
-    if request.method == 'GET':
-        posts = Trip.objects.all()
-        return render(request, 'board.html', {'posts': posts})
+class PostListView(ListView):
+    model = Trip
+    context_object_name = 'post_list'
+    template_name = 'board.html'
 
 
 def create_posts(request):
