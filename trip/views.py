@@ -39,6 +39,6 @@ class PostCreateView(View):
                 Schedule.objects.create(trip=trip, place=schedule)
 
         else:
-            return redirect('sign-in')
+            return redirect('log-in')
 
         return redirect('trips')
