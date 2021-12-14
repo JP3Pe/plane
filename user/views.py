@@ -39,9 +39,7 @@ def sign_in(request):
         if user is not None:
             auth.login(request, user)
             messages.success(request, '로그인 성공')
-            # TODO: Logout 로직 삭제
-            auth.logout(request)
-            return redirect('sign-up')
+            return redirect('trips')
         # 로그인 실패 시
         else:
             messages.error(request, '존재하지 않는 아이디 이거나 비밀번호가 틀렸습니다.')
