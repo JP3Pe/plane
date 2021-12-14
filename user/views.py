@@ -30,7 +30,7 @@ def sign_in(request):
             email = form.cleaned_data['email']
             password = form.cleaned_data['password']
             # TODO: index로 접근하는 것에 대한 예외 처리
-            username = User.objects.filter(email=email).values()[0]['username']
+            username = User.objects.filter(email=email).values_list('username')[0][0]
             user = auth.authenticate(username=username, password=password)
         else:
             return redirect('sign-in')
@@ -45,8 +45,12 @@ def sign_in(request):
             messages.error(request, '존재하지 않는 아이디 이거나 비밀번호가 틀렸습니다.')
             return redirect('sign-in')
     else:
-        form = SigninForm()
-        return render(request, 'sign_in.html', {'form': form})
+        # 로그인이 되어 있는 상태인 경우
+        if request.user.is_authenticated:
+            return redirect('trips')
+        else:
+            form = SigninForm()
+            return render(request, 'sign_in.html', {'form': form})
 
 
 def logout(request):
