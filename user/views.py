@@ -3,13 +3,13 @@ from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.views import View
 
-from .forms import SigninForm, SignupForm
+from .forms import UserLoginForm, UserRegisterForm
 
 
 class UserRegisterView(View):
     @staticmethod
     def post(request):
-        form = SignupForm(request.POST)
+        form = UserRegisterForm(request.POST)
         if form.is_valid():
             if User.objects.filter(email=form.cleaned_data['email']):
                 messages.error(request, '해당 유저명은 이미 사용 중 입니다.')
@@ -22,14 +22,14 @@ class UserRegisterView(View):
 
     @staticmethod
     def get(request):
-        form = SignupForm()
+        form = UserRegisterForm()
         return render(request, 'register.html', {'form': form})
 
 
 class UserLoginView(View):
     @staticmethod
     def post(request):
-        form = SigninForm(request.POST)
+        form = UserLoginForm(request.POST)
         if form.is_valid():
             email = form.cleaned_data['email']
             password = form.cleaned_data['password']
@@ -55,7 +55,7 @@ class UserLoginView(View):
         if request.user.is_authenticated:
             return redirect('trips')
         else:
-            form = SigninForm()
+            form = UserLoginForm()
             return render(request, 'log_in.html', {'form': form})
 
 
