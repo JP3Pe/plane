@@ -1,6 +1,6 @@
 {% extends 'trip_base.html' %}
 {% block content %}
-    <script>
+    <script type="text/javascript">
         var arrInput = new Array(0);
         var arrInputValue = new Array(0);
 
@@ -22,8 +22,7 @@
         }
 
         function createInput(id, value) {
-            return "<label for='subject'> 일정 </label>" + " <input type='text' calss='form-control' placeholder='{{ post.title }}'  id='test " + id + "' onChange='javascript:saveValue(" + id + ",this.value)' value='" +
-                value + "'><br>";
+            return "<label for='subject'> 일정 </label>" + '{{ schedule_form.place }}' + "<br>";
         }
 
         function deleteInput() {
@@ -44,23 +43,20 @@
             </div>
         </section>
         <div class="container">
-            {#        <form action="{% url 'edit_post' post.id %}" method="POST">#}
             <div class="form-group">
-                <label for="subject">여행 제목</label>
-                <input type="text" class="form-control" id="title" name="title" placeholder="{{ post.title }}">
-            </div>
-            <div class="form-group">
-                <label for="content">여행 일정</label>
-                <div class="form-group" id="parah"></div>
-                <form method="post" action="test.jsp">
+                <form method="post" action="{% url 'create-post' %}">
+                    {% csrf_token %}
+                    <label for="subject">여행 제목</label>
+                    {{ trip_form.title }}
+                    <label for="content">여행 일정</label>
+                    <div class="form-group" id="parah"></div>
                     <input type="button" value="추가" onclick="addInput();"/>
                     <input type="button" value="삭제" onclick="deleteInput();"/>
+                    {{ trip_form.explanation }}
+                    <button type="submit" class="btn btn-secondary">작성</button>
+                    {#                <a type="button" class="btn btn-secondary" href="{% url 'delete_post' post.id %}">삭제</a>#}
+                    {#                <a type="button" class="btn btn-secondary" href="{% url 'show_post' %}">취소</a>#}
                 </form>
-                <textarea class="form-control whitebackground size" id="body" name="body"
-                          rows="3">{{ post.body }}</textarea>
-                <button type="submit" class="btn btn-secondary">작성</button>
-                {#                <a type="button" class="btn btn-secondary" href="{% url 'delete_post' post.id %}">삭제</a>#}
-                {#                <a type="button" class="btn btn-secondary" href="{% url 'show_post' %}">취소</a>#}
             </div>
             </form>
         </div>
