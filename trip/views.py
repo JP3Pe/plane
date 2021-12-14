@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
+from django.views import View
 from django.views.generic import ListView
 
 from schedule.forms import ScheduleForm
@@ -14,13 +15,15 @@ class PostListView(ListView):
     template_name = 'board.html'
 
 
-def create_posts(request):
-    if request.method == 'GET':
+class PostCreateView(View):
+    @staticmethod
+    def get(request):
         trip_form = TripForm
         schedule_form = ScheduleForm
         return render(request, 'board_write.html', {'trip_form': trip_form, 'schedule_form': schedule_form})
 
-    elif request.method == 'POST':
+    @staticmethod
+    def post(request):
         if request.user.is_authenticated:
             trip_form = TripForm(request.POST)
             trip = None
