@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 from django.views.generic import ListView
 
@@ -42,3 +42,10 @@ class PostCreateView(View):
             return redirect('log-in')
 
         return redirect('trips')
+
+
+class PostDetailView(View):
+    @staticmethod
+    def get(request, trip_id):
+        trip = get_object_or_404(Trip, pk=trip_id)
+        return render(request, 'trip_detail.html', {'trip': trip})
