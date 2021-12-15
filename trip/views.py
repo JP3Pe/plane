@@ -12,7 +12,7 @@ from trip.models import Trip
 class PostListView(ListView):
     model = Trip
     context_object_name = 'post_list'
-    template_name = 'board.html'
+    template_name = 'trip_list.html'
 
 
 class PostCreateView(View):
@@ -20,7 +20,7 @@ class PostCreateView(View):
     def get(request):
         trip_form = TripForm
         schedule_form = ScheduleForm
-        return render(request, 'board_write.html', {'trip_form': trip_form, 'schedule_form': schedule_form})
+        return render(request, 'trip_create.html', {'trip_form': trip_form, 'schedule_form': schedule_form})
 
     @staticmethod
     def post(request):

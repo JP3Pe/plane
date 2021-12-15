@@ -47,3 +47,11 @@ footer p {
 .whitebackground {
   background-color: white !important;
 }
+
+.harf_size {
+  width: 50%;
+}
+
+.flex_container {
+  display: flex;
+}
