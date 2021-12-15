@@ -48,4 +48,5 @@ class PostDetailView(View):
     @staticmethod
     def get(request, trip_id):
         trip = get_object_or_404(Trip, pk=trip_id)
-        return render(request, 'trip_detail.html', {'trip': trip})
+        schedules = Schedule.objects.filter(trip=trip)
+        return render(request, 'trip_detail.html', {'trip': trip, 'schedules': schedules})

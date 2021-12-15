@@ -18,8 +18,11 @@
                     <label for="content">여행 일정</label>
                     <div class="form-group" id="parah"></div>
                     <div class="flex_container">
-                        <textarea class="form-control whitebackground" id="schedule" name="schedule"
-                                  rows="10"></textarea>
+                        <textarea class="form-control whitebackground" id="schedule" name="schedule" rows="10">
+                           {% for schedule in schedules %}
+                               {{ schedule.place }}
+                           {% endfor %}
+                        </textarea>
                         <textarea class="form-control whitebackground" id="body" name="body"
                                   rows="10">{{ trip.explanation }}</textarea>
                     </div>
